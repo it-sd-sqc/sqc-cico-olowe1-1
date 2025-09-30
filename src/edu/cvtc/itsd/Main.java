@@ -268,6 +268,13 @@ public class Main {
 
     panelMain.add(Box.createVerticalGlue());
 
+    // ===== Ticket 501: Add Next button =====
+    JButton nextButton = new JButton("Next");
+    nextButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    nextButton.addActionListener(e -> skipTimeout());
+    nextButton.setForeground(Color.orange);
+    panelMain.add(nextButton);
+
     // Status panel ///////////////////////////////////////////////////////////
     JPanel panelStatus = new JPanel();
     panelStatus.setLayout(new BoxLayout(panelStatus, BoxLayout.PAGE_AXIS));
