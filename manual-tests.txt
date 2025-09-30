@@ -61,6 +61,17 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 ## Expected results
 * Should display "Developer" for the user name.
 
+Ticket 501: Allow next user to check in/out without waiting for timeout
+
+Manual Test Steps:
+1. Scan a card.
+2. Observe timeout before next scan is allowed.
+3. Press new "Next" button (if added).
+4. Verify next user can immediately scan and check in/out.
+
+Expected Result:
+The timeout is bypassed when pressing the "Next" button, but automatic timeout still works if button is not pressed.
+
 
 Ticket 401 – Prevent non-numerical input in card field
 
