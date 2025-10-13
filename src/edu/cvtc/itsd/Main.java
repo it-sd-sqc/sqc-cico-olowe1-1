@@ -39,23 +39,26 @@ public class Main {
 
     @Override
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
-            throws BadLocationException {
-      if (fb.getDocument() != null) {
-        super.insertString(fb, offset, stringToAdd, attr);
-        digitsEntered(fb);
+        throws BadLocationException
+    {
+      if (stringToAdd != null && stringToAdd.matches("\\d+")) {
+      super.insertString(fb, offset, stringToAdd, attr);
       } else {
-        Toolkit.getDefaultToolkit().beep();
+      Toolkit.getDefaultToolkit().beep(); // invalid input feedback
       }
     }
 
     @Override
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
-            throws BadLocationException {
-      if (fb.getDocument() != null) {
+        throws BadLocationException
+    {
+      if (stringToAdd != null && stringToAdd.matches("\\d+")) {
         super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
-        digitsEntered(fb);
+      } else if (stringToAdd == null || stringToAdd.isEmpty()) {
+        // allow deletion
+        super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
       } else {
-        Toolkit.getDefaultToolkit().beep();
+        Toolkit.getDefaultToolkit().beep(); // invalid input feedback
       }
     }
 
@@ -272,6 +275,13 @@ public class Main {
     //panelMain.add(updateButton);
 
     panelMain.add(Box.createVerticalGlue());
+
+    // ===== Ticket 501: Add Next button =====
+    JButton nextButton = new JButton("Next");
+    nextButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    nextButton.addActionListener(e -> skipTimeout());
+    nextButton.setForeground(Color.orange);
+    panelMain.add(nextButton);
 
     // Status panel ///////////////////////////////////////////////////////////
     JPanel panelStatus = new JPanel();
